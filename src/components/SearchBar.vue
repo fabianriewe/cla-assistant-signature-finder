@@ -1,15 +1,16 @@
 <template>
     <div>
-        <h1>{{headline}}</h1>
         <v-row>
             <v-col>
                 <v-text-field
                         v-model="input"
+                        :label="headline"
+                        outlined
+                        append-outer-icon="mdi-magnify"
+                        @click:append-outer="$emit('search', input)"
+                        @click:append="$emit('search', input)"
                 >
                 </v-text-field>
-            </v-col>
-            <v-col>
-                <v-btn @click="$emit('search', input)">Search</v-btn>
             </v-col>
         </v-row>
     </div>
