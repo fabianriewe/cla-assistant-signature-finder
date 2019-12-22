@@ -13,7 +13,14 @@
               ></v-progress-circular>
           </div>
           <div v-else>
-              <user :user="user"  v-for="(user, index) in users " :key="index"></user>
+            <v-list>
+              <v-list-item  v-for="(signature, index) in signatures " :key="index">
+                <v-list-item-content>
+                  <signature :signature="signature" style="width: 100%"></signature>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
           </div>
         </v-container>
     </v-content>
@@ -21,19 +28,19 @@
 </template>
 
 <script>
-import User from './components/User';
+import Signature from './components/Signature';
 import SearchBar from './components/SearchBar';
 
 export default {
   name: 'App',
 
   components: {
-    User,
+    Signature,
       SearchBar,
   },
 
   data: () => ({
-    users: [],
+    signatures: [],
       loading: false
   }),
   methods: {
@@ -41,7 +48,7 @@ export default {
         if (repoId) {
             this.loading = true;
             const response = await this.axios.get('/repos?repo_id=' + repoId);
-            this.users = response.data;
+            this.signatures = response.data;
             this.loading = false;
         }
     },
@@ -49,7 +56,7 @@ export default {
           if (userId) {
               this.loading = true;
               const response = await this.axios.get('/users?user_id=' + userId);
-              this.users = response.data;
+              this.signatures = response.data;
               this.loading = false;
           }
       }
