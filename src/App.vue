@@ -1,60 +1,51 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
     <v-content>
-      <HelloWorld/>
+        <h1>By Repo:</h1>
+        <v-text-field
+                v-model="repoId"
+        >
+        </v-text-field>
+        <v-btn @click="usersBySignature()">Search</v-btn>
+        <div v-if="loading">
+            <v-progress-circular
+                    indeterminate
+                    color="primary"
+            ></v-progress-circular>
+        </div>
+        <div v-else>
+            <user :user="user"  v-for="(user, index) in users " :key="index"></user>
+        </div>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import User from './components/User';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    User,
   },
 
   data: () => ({
-    //
+    users: [],
+      repoId: undefined,
+      loading: false
   }),
+  methods: {
+    async usersBySignature() {
+        if (this.repoId) {
+            this.loading = true;
+            const response = await this.axios.get('/repos?repo_id=' + this.repoId);
+            this.users = response.data;
+            this.loading = false;
+        }
+    }
+  },
+  async mounted() {
+  }
 };
 </script>
