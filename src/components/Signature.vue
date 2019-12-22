@@ -2,7 +2,7 @@
       <div>
         <v-row>
           <v-col>
-            <v-icon>mdi-github-circle</v-icon>{{signature[0]}} ({{ signature[1]}})
+            <v-icon>mdi-github-circle</v-icon>{{signature[0]}} <span @click="$emit('click:user-id', signature[1])">({{ signature[1]}})</span>
           </v-col>
           <v-col>
             <v-row>

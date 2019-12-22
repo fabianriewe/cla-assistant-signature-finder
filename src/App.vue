@@ -2,6 +2,7 @@
   <v-app>
     <v-content>
         <v-container>
+          <h1>CLA-Assistant: Signature-Finder</h1>
           <v-row>
             <v-col><search-bar headline="By RepoId" @search="signaturesByRepo"></search-bar></v-col>
             <v-col><search-bar headline="By UserId" @search="signaturesByUser"></search-bar></v-col>
@@ -16,7 +17,11 @@
             <v-list dense>
               <v-list-item  v-for="(signature, index) in signatures " :key="index">
                 <v-list-item-content>
-                  <signature :signature="signature" style="width: 100%"></signature>
+                  <signature
+                      :signature="signature"
+                      style="width: 100%"
+                      @click:user-id="signaturesByUser"
+                  />
                 </v-list-item-content>
               </v-list-item>
             </v-list>
