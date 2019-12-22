@@ -13,7 +13,7 @@
               ></v-progress-circular>
           </div>
           <div v-else>
-            <v-list>
+            <v-list dense>
               <v-list-item  v-for="(signature, index) in signatures " :key="index">
                 <v-list-item-content>
                   <signature :signature="signature" style="width: 100%"></signature>
